@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TraceGuard AI | Fraud Intelligence, Prevention, and Response</title>
+  <meta name="description" content="TraceGuard AI helps individuals, families, and organizations respond to fraud faster through education, reporting workflows, scam intelligence, and guided investigation support." />
+  <meta name="theme-color" content="#07131c" />
+  <style>
+    :root {
+      --bg: #07131c;
+      --panel: rgba(12, 31, 43, 0.86);
+      --panel-2: rgba(17, 45, 61, 0.82);
+      --text: #f4fbff;
+      --muted: #b1c9d6;
+      --line: rgba(255,255,255,0.08);
+      --primary: #35d4eb;
+      --primary-soft: rgba(53,212,235,0.16);
+      --accent: #8ef3ff;
+      --success: #43d69b;
+      --warning: #ffbf66;
+      --danger: #ff7a85;
+      --shadow: 0 20px 70px rgba(0,0,0,0.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1200px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(53,212,235,0.12), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(142,243,255,0.08), transparent 22%),
+        radial-gradient(circle at 72% 88%, rgba(67,214,155,0.08), transparent 20%),
+        linear-gradient(145deg, #07131c 0%, #0d1f2c 48%, #123246 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 16px; border-radius: 999px; font-size: 13px; letter-spacing: .04em;
+      border: 1px solid rgba(53,212,235,0.25); background: var(--primary-soft); color: var(--accent);
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 22px; border-radius: 16px; font-weight: 700; border: 1px solid transparent;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), #7eeef8); color: #06202a; box-shadow: 0 14px 30px rgba(53,212,235,0.25); }
+    .btn-secondary { background: rgba(255,255,255,0.06); border-color: var(--line); color: var(--text); }
+    .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.12); color: var(--muted); }
+    .nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      background: rgba(7,19,28,0.76); border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-inner {
+      width: min(var(--max), calc(100% - 32px)); margin: 0 auto; min-height: 78px;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-mark {
+      width: 48px; height: 48px; border-radius: 18px; display: grid; place-items: center;
+      background: linear-gradient(180deg, rgba(53,212,235,0.2), rgba(53,212,235,0.06)); border: 1px solid rgba(53,212,235,0.18);
+      box-shadow: 0 12px 28px rgba(53,212,235,0.16);
+      font-size: 22px;
+    }
+    .brand-copy b { display: block; font-size: 18px; }
+    .brand-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-links a { padding: 11px 14px; border-radius: 12px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .hero { position: relative; overflow: hidden; }
+    .hero-grid {
+      position: absolute; inset: 0 0 auto 0; height: 520px; opacity: .35; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent);
+    }
+    .hero-inner {
+      position: relative; width: min(var(--max), calc(100% - 32px)); margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: 30px; padding: 62px 0 42px;
+      align-items: center;
+    }
+    h1 {
+      margin: 18px 0 18px; font-size: clamp(2.9rem, 6vw, 5.4rem); line-height: .98; letter-spacing: -0.04em;
+    }
+    .hero p.lead { font-size: clamp(1.03rem, 1.45vw, 1.2rem); line-height: 1.75; color: var(--muted); max-width: 760px; }
+    .hero-highlights { margin-top: 28px; display: grid; gap: 12px; }
+    .highlight {
+      display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .highlight strong { display: block; margin-bottom: 4px; }
+    .hero-card { border-radius: 30px; padding: 24px; }
+    .hero-card .metric-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin: 18px 0 20px; }
+    .metric {
+      padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .metric b { display: block; font-size: 1.9rem; margin-bottom: 5px; }
+    .metric span { color: var(--muted); font-size: .93rem; }
+    section { padding: 28px 0 78px; }
+    .section-head { max-width: 840px; margin-bottom: 28px; }
+    .eyebrow { color: var(--accent); font-size: 13px; letter-spacing: .24em; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.02; margin: 0 0 14px; }
+    .section-head p { color: var(--muted); font-size: 1.03rem; line-height: 1.75; }
+    .service-grid, .proof-grid, .path-grid, .faq-grid { display: grid; gap: 18px; }
+    .service-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .proof-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .path-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .faq-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .card { border-radius: 24px; padding: 22px; }
+    .card h3 { margin: 0 0 10px; font-size: 1.18rem; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.7; }
+    .icon {
+      width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px;
+      background: rgba(53,212,235,0.15); color: var(--accent); font-size: 20px;
+    }
+    .band {
+      display: grid; grid-template-columns: minmax(0,1.1fr) minmax(280px,.9fr); gap: 22px; align-items: stretch;
+    }
+    .list { display: grid; gap: 12px; margin-top: 16px; }
+    .list-item { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); }
+    .list-item small { color: var(--muted); display: block; margin-top: 4px; line-height: 1.55; }
+    .proof-grid .card { text-align: center; }
+    .proof-grid b { display: block; font-size: 2rem; margin-bottom: 6px; color: var(--accent); }
+    .path-grid .card { position: relative; overflow: hidden; }
+    .path-grid .step { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--primary-soft); color: var(--accent); font-weight: 800; margin-bottom: 14px; }
+    .cta-panel {
+      display: grid; grid-template-columns: minmax(0,1.1fr) minmax(280px,.9fr); gap: 24px; align-items: center;
+      border-radius: 34px; padding: 32px;
+      background: linear-gradient(140deg, rgba(53,212,235,0.16), rgba(255,255,255,0.06));
+      border: 1px solid rgba(142,243,255,0.15);
+      box-shadow: var(--shadow);
+    }
+    .cta-panel p { color: #daf5fb; line-height: 1.75; }
+    .contact-box { border-radius: 26px; padding: 22px; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08); }
+    .contact-box .line { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .contact-box .line:last-child { border-bottom: 0; }
+    .micro { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+    footer { padding: 24px 0 34px; color: var(--muted); }
+    .footer-inner { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .mobile-nav-toggle { display: none; }
+    @media (max-width: 1024px) {
+      .hero-inner, .band, .cta-panel, .service-grid, .proof-grid, .path-grid, .faq-grid { grid-template-columns: 1fr; }
+      .hero-card .metric-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 840px) {
+      .nav-inner { min-height: 72px; }
+      .mobile-nav-toggle { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; left: 16px; right: 16px; top: 82px; padding: 10px;
+        background: rgba(7,19,28,0.96); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+        box-shadow: var(--shadow); flex-direction: column;
+      }
+      .nav-links.open { display: flex; }
+      .hero-inner { padding-top: 42px; }
+      .hero-card .metric-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 15px; }
+      .wrap, .nav-inner, .hero-inner, .footer-inner { width: min(var(--max), calc(100% - 22px)); }
+      .card, .hero-card, .cta-panel, .contact-box { padding: 18px; }
+      h1 { font-size: 2.65rem; }
+      h2 { font-size: 1.9rem; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <div class="brand-mark">🛡️</div>
+        <div class="brand-copy">
+          <b>TraceGuard AI</b>
+          <span>Fraud intelligence, prevention, and guided response</span>
+        </div>
+      </a>
+      <nav id="siteNav" class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#platform">Platform</a>
+        <a href="#how">How It Works</a>
+        <a href="#why">Why TraceGuard</a>
+        <a href="#launch">Launch</a>
+      </nav>
+      <div class="btn-row" style="align-items:center;">
+        <button class="btn btn-ghost mobile-nav-toggle" type="button" onclick="document.getElementById('siteNav').classList.toggle('open')">Menu</button>
+        <a class="btn btn-secondary" href="app/index.html">Open Platform</a>
+        <a class="btn btn-primary" href="#launch">Request a Strategy Call</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div>
+          <div class="pill">Built for people who want a real plan when fraud hits</div>
+          <h1>Protection that looks premium, moves fast, and makes people feel supported.</h1>
+          <p class="lead">TraceGuard AI combines fraud awareness training, guided reporting workflows, scam pattern tracking, and investigation support into one trust-forward platform. We help people understand what happened, what to do next, and how to respond with structure instead of panic.</p>
+          <div class="btn-row" style="margin-top:28px;">
+            <a class="btn btn-primary" href="app/index.html">Launch TraceGuard AI</a>
+            <a class="btn btn-secondary" href="#services">See What We Do</a>
+          </div>
+          <div class="hero-highlights">
+            <div class="highlight"><div>✓</div><div><strong>Clear public-facing credibility</strong><span>Premium homepage messaging, service clarity, and app access from the first click.</span></div></div>
+            <div class="highlight"><div>✓</div><div><strong>Education plus action</strong><span>Training, incident intake, mock live fraud watch, and guided next-step support all in one brand experience.</span></div></div>
+            <div class="highlight"><div>✓</div><div><strong>Built to grow with you</strong><span>Ready to expand into payments, live feeds, admin workflows, Spanish content, and a deeper monthly curriculum.</span></div></div>
+          </div>
+        </div>
+        <aside class="glass hero-card">
+          <div class="pill" style="margin-bottom:12px;">What the homepage tells people instantly</div>
+          <h3 style="font-size:1.65rem; margin:0 0 8px;">This is not another vague cyber page.</h3>
+          <p style="color:var(--muted); line-height:1.75; margin:0;">Visitors see a clear mission, strong service positioning, a visible platform path, and a reason to trust the process without fake numbers or fake claims.</p>
+          <div class="metric-grid">
+            <div class="metric"><b>3</b><span>Core pillars: educate, report, respond</span></div>
+            <div class="metric"><b>1</b><span>Unified brand from landing page to platform</span></div>
+            <div class="metric"><b>24/7</b><span>App-style access when the site is published</span></div>
+            <div class="metric"><b>Ready</b><span>For hosting, domain connection, and redirects</span></div>
+          </div>
+          <div class="list">
+            <div class="list-item"><div>🧠</div><div><strong>Academy</strong><small>Interactive scam awareness training built to make learners slow down, think, and respond correctly.</small></div></div>
+            <div class="list-item"><div>📡</div><div><strong>Fraud Watch</strong><small>A live-feed concept where people can watch ongoing reports and submit incidents through a safer intake flow.</small></div></div>
+            <div class="list-item"><div>🗂️</div><div><strong>Investigation Support</strong><small>Evidence-centered workflows that help users organize what happened and prepare the right next move.</small></div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Services</div>
+          <h2>What TraceGuard AI does</h2>
+          <p>The homepage has to make your offer obvious in seconds. These are the main service lanes people need to understand before they ever click deeper into the platform.</p>
+        </div>
+        <div class="service-grid">
+          <article class="glass card">
+            <div class="icon">🎓</div>
+            <h3>Fraud Awareness Academy</h3>
+            <p>Structured weekly training with opener videos, written lessons, scenario drills, reply simulations, and pass thresholds that push people to learn instead of skim.</p>
+          </article>
+          <article class="glass card">
+            <div class="icon">🛡️</div>
+            <h3>Incident Intake & Guided Response</h3>
+            <p>A calm, organized place for frightened users to report what happened, document evidence, and move through the next steps with less confusion and more control.</p>
+          </article>
+          <article class="glass card">
+            <div class="icon">📈</div>
+            <h3>Fraud Watch Intelligence</h3>
+            <p>A scam intelligence view designed to keep users engaged with rolling reports, patterns, and an always-on watch experience that supports awareness while they wait.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="wrap band">
+        <div class="glass card">
+          <div class="eyebrow">Platform Vision</div>
+          <h2 style="margin-bottom:10px;">One brand. One website. Multiple ways to help people.</h2>
+          <p style="color:var(--muted); line-height:1.78;">Your public site should not feel disconnected from the product. The landing page sells the mission, the platform delivers the experience, and every click reinforces the same message: TraceGuard AI helps people prepare, report, and respond with structure.</p>
+          <div class="list">
+            <div class="list-item"><div>1</div><div><strong>Landing page</strong><small>Premium front door that explains the mission, the service lanes, and the reason to trust you.</small></div></div>
+            <div class="list-item"><div>2</div><div><strong>Platform app</strong><small>The working service area with Academy modules, Fraud Watch concepts, and investigations support.</small></div></div>
+            <div class="list-item"><div>3</div><div><strong>Next-phase growth</strong><small>Payments, intake automation, protected admin views, language support, and production-ready live feeds.</small></div></div>
+          </div>
+          <div class="btn-row" style="margin-top:22px;">
+            <a class="btn btn-primary" href="app/index.html">Enter the Platform</a>
+            <a class="btn btn-secondary" href="#launch">Publish This Site</a>
+          </div>
+        </div>
+        <div class="glass card">
+          <div class="eyebrow">Public trust cues</div>
+          <div class="list">
+            <div class="list-item"><div>🔒</div><div><strong>Private-first positioning</strong><small>Lead with evidence handling, controlled review, and careful public-facing language instead of hype.</small></div></div>
+            <div class="list-item"><div>📚</div><div><strong>Visible educational depth</strong><small>Show that your users are not just watching content. They are learning, practicing, and proving comprehension.</small></div></div>
+            <div class="list-item"><div>⚙️</div><div><strong>Operational readiness</strong><small>Make it obvious that the platform is built to expand into real workflows, not sit as a brochure site.</small></div></div>
+            <div class="list-item"><div>🌐</div><div><strong>Cross-device delivery</strong><small>Publish once, then point users on desktop and mobile to the same core site and app experience.</small></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">How It Works</div>
+          <h2>Show people the process so they know what happens next</h2>
+          <p>When somebody is scared or overwhelmed, clarity matters. This section tells them what working with TraceGuard AI is meant to feel like from the first visit forward.</p>
+        </div>
+        <div class="path-grid">
+          <article class="glass card">
+            <div class="step">1</div>
+            <h3>Learn the warning signs</h3>
+            <p>Users start with the Academy to understand scam patterns, red flags, emotional manipulation, and safer digital decision-making.</p>
+          </article>
+          <article class="glass card">
+            <div class="step">2</div>
+            <h3>Report what happened</h3>
+            <p>They move into structured intake and evidence organization so the situation is documented in a way that supports action instead of confusion.</p>
+          </article>
+          <article class="glass card">
+            <div class="step">3</div>
+            <h3>Track patterns and next steps</h3>
+            <p>Fraud Watch and investigations support give the platform a living intelligence layer that helps users feel seen while the service grows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Why TraceGuard</div>
+          <h2>Premium presentation without fake credibility</h2>
+          <p>The strongest version of trust is not made-up social proof. It is a sharp site, serious language, clear services, a visible product, and a response model that feels organized from the first click.</p>
+        </div>
+        <div class="proof-grid">
+          <article class="glass card"><b>Clear</b><p>People instantly understand what you do and where to go next.</p></article>
+          <article class="glass card"><b>Focused</b><p>The platform is centered on fraud prevention, reporting, and response.</p></article>
+          <article class="glass card"><b>Actionable</b><p>Users do not just read about scams. They work through them.</p></article>
+          <article class="glass card"><b>Expandable</b><p>The foundation is ready for payments, live data, and deeper automation.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="faq-grid">
+          <article class="glass card">
+            <h3>Who is this for?</h3>
+            <p>Individuals, families, community members, and organizations that want a more structured way to learn about scams and respond when something happens.</p>
+          </article>
+          <article class="glass card">
+            <h3>What makes this different?</h3>
+            <p>TraceGuard AI is designed to combine awareness training, incident handling, and fraud intelligence into one connected experience instead of treating them like separate problems.</p>
+          </article>
+          <article class="glass card">
+            <h3>Can this grow into a full service website?</h3>
+            <p>Yes. This package is already laid out for expansion into payment processors, better intake handling, live report feeds, and stronger customer workflows.</p>
+          </article>
+          <article class="glass card">
+            <h3>Does this include the working app?</h3>
+            <p>Yes. This package includes the landing page and the existing platform in the <code style="color:var(--accent)">app/</code> folder so you can publish both together.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="launch">
+      <div class="wrap">
+        <div class="cta-panel">
+          <div>
+            <div class="eyebrow">Launch Ready</div>
+            <h2 style="margin-bottom:12px;">Publish the site, connect your domain, and start sending people to something official.</h2>
+            <p>This package is ready to go live as a serious-looking public site. Publish the root folder, point your domain at it, and your homepage becomes the front door for TraceGuard AI while the platform lives behind it at <strong>/app</strong>.</p>
+            <div class="btn-row" style="margin-top:22px;">
+              <a class="btn btn-primary" href="app/index.html">Preview Platform</a>
+              <a class="btn btn-secondary" href="README-PUBLISH.txt">Read Publish Guide</a>
+            </div>
+          </div>
+          <aside class="contact-box">
+            <div class="line"><strong>Suggested homepage URL</strong><div class="micro">https://yourdomain.com</div></div>
+            <div class="line"><strong>Suggested platform URL</strong><div class="micro">https://yourdomain.com/app</div></div>
+            <div class="line"><strong>Suggested CTA</strong><div class="micro">Book a strategy call, request support, or enter the platform.</div></div>
+            <div class="line"><strong>Suggested next build</strong><div class="micro">Stripe or Square intake flow, a real contact form backend, and a protected admin system.</div></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> TraceGuard AI. Built for fraud awareness, prevention, and response.</div>
+      <div>Public site + working app package included.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
